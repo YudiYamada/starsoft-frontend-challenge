@@ -7,6 +7,8 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    // deixa a renderização das fontes mais nítida e suave
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
