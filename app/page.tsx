@@ -1,11 +1,14 @@
+import Hero from "@/components/Hero";
 import Header from "@/components/Header"
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
     <div>
       <main>
         <Header />
-        <h1>Hello World!</h1>
+        <Hero />
+        <Footer />
       </main>
     </div>
   );
