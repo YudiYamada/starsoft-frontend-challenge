@@ -8,8 +8,8 @@ export const HeaderComponent = styled.header`
   padding-top: 35px;
   padding-bottom: 29px;
   padding-inline: 41px;
-  border-bottom: 2px solid;
-  border-color: ${(props) => props.theme.colors.surface};
+  border-bottom: 1px solid;
+  border-color: color-mix(in srgb, ${(props) => props.theme.colors.white}, transparent 77%);
 `;
 
 export const CartContainerComponent = styled.div`
