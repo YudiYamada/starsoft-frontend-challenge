@@ -1,7 +1,7 @@
 import Image from "next/image";
 import logo from "../../public/images/logo.png";
-import bag from "../../public/images/bag.png";
-import { CartContainerComponent, HeaderComponent } from "./styles";
+import { HeaderComponent } from "./styles";
+import CartTrigger from "../CartTrigger";
 
 
 const Header = () => {
@@ -10,10 +10,9 @@ const Header = () => {
       <div>
         <Image src={logo} alt="logo" />
       </div>
-      <CartContainerComponent>
-        <Image src={bag} alt="bag" />
-        <span>0</span>
-      </CartContainerComponent>
+      <div>
+        <CartTrigger />
+      </div>
     </HeaderComponent>
   );
 };
