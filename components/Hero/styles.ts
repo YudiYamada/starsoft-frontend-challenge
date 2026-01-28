@@ -49,5 +49,6 @@ export const FetchContainer = styled.div`
     width: 100%;
     color: transparent;
     border-radius: 8px;
+    height: 10px;
   }
 `;
