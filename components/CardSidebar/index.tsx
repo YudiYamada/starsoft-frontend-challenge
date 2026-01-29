@@ -20,7 +20,7 @@ const CardSidebar = () => {
   return (
     <SidebarCard>
       <ImageContainer>
-        <Image src={Test} alt="Item do Carrinho" fill />
+        <Image src={Test} alt="Item do Carrinho" width={161} height={161} />
       </ImageContainer>
 
       <Info>

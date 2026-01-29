@@ -14,7 +14,7 @@ const CartTrigger = () => {
   return (
     <>
       <CartContainerComponent onClick={toggleCart}>
-        <Image src={bag} alt="bag" />
+        <Image src={bag} alt="bag" width={33} height={33} />
         <span>0</span>
       </CartContainerComponent>
 
