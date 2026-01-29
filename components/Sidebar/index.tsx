@@ -16,6 +16,8 @@ import ArrowLeft from "../../public/images/Arrow - Left.png";
 import Ellipse from "../../public/images/testellipse.png";
 import Image from "next/image";
 import Button from "../Button/indext";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -23,6 +25,12 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+  const items = useSelector((state: RootState) => state.cart.items);
+  const total = items.reduce(
+    (sum, item) => sum + parseFloat(item.price) * item.quantity,
+    0,
+  );
+
   return (
     <SidebarContainer $isOpen={isOpen}>
       <SidebarHeader>
@@ -33,8 +41,9 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       </SidebarHeader>
 
       <SidebarContent>
-        <CardSidebar />
-        <CardSidebar />
+        {items.map((item) => (
+          <CardSidebar key={item.id} product={item} />
+        ))}
       </SidebarContent>
 
       <SidebarFooter>
@@ -42,7 +51,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
           <span>TOTAL</span>
           <PriceContainer>
             <Image src={Ellipse} alt="ethereum" width={16} height={16} />
-            44 ETH
+            {total.toFixed(2)} ETH
           </PriceContainer>
         </TotalContainer>
         <Button text="FINALIZAR COMPRA" />
