@@ -7,6 +7,7 @@ import Button from "../Button";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import Link from "next/link";
+import { motion } from "framer-motion";
 interface Product {
   id: number;
   name: string;
@@ -14,6 +15,8 @@ interface Product {
   image: string;
   price: string;
 }
+
+const MotionCard = motion(CardContainerComponent as any);
 
 const Card = ({ product }: { product: Product }) => {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ const Card = ({ product }: { product: Product }) => {
   };
 
   return (
-    <CardContainerComponent>
+    <MotionCard whileHover={{ scale: 1.02 }} transition={{ duration: 0.18 }}>
       <Link
         href={`/nft/${product.id}`}
         aria-label={`Ver detalhes de ${product.name}`}
@@ -50,7 +53,7 @@ const Card = ({ product }: { product: Product }) => {
         </div>
         <Button text="Comprar" onClick={handleAddToCart} />
       </DescriptionContainer>
-    </CardContainerComponent>
+    </MotionCard>
   );
 };
 

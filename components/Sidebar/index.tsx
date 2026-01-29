@@ -17,17 +17,23 @@ import Ellipse from "../../public/images/testellipse.png";
 import Image from "next/image";
 import Button from "../Button";
 import { useCart } from "@/hooks/useCart";
+import { motion } from "framer-motion";
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const MotionSidebar = motion(SidebarContainer as any);
+
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const { items, getTotal } = useCart();
 
   return (
-    <SidebarContainer
+    <MotionSidebar
+      initial={{ x: "100%" }}
+      animate={isOpen ? { x: 0 } : { x: "100%" }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
       $isOpen={isOpen}
       role="dialog"
       aria-modal="true"
@@ -56,7 +62,7 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
         </TotalContainer>
         <Button text="FINALIZAR COMPRA" />
       </SidebarFooter>
-    </SidebarContainer>
+    </MotionSidebar>
   );
 };
 
