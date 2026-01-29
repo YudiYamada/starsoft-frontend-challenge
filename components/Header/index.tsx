@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <HeaderComponent>
       <div>
-        <Image src={logo} alt="logo" />
+        <Image src={logo} alt="logo" width={101} height={38} />
       </div>
       <div>
         <CartTrigger />
