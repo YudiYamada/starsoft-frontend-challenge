@@ -17,9 +17,19 @@ const CartTrigger = () => {
 
   return (
     <>
-      <CartContainerComponent onClick={toggleCart}>
-        <Image src={bag} alt="bag" width={33} height={33} />
-        <span>{totalQuantity}</span>
+      <CartContainerComponent
+        as="button"
+        onClick={toggleCart}
+        aria-label="Abrir carrinho de compras"
+      >
+        {" "}
+        <Image
+          src={bag}
+          alt="Ícone de sacola de compras"
+          width={33}
+          height={33}
+        />{" "}
+        <span aria-live="polite">{totalQuantity}</span>{" "}
       </CartContainerComponent>
 
       <Sidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />

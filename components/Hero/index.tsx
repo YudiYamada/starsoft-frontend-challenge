@@ -54,7 +54,13 @@ const Hero = () => {
       </CardContainer>
 
       <FetchContainer $progress={progress}>
-        <div className="progress-track">
+        <div
+          className="progress-track"
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+        >
           <div className="progress-fill" />
         </div>
 

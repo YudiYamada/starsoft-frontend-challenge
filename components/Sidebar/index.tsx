@@ -32,20 +32,26 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   );
 
   return (
-    <SidebarContainer $isOpen={isOpen}>
+    <SidebarContainer
+      $isOpen={isOpen}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Carrinho de compras"
+    >
+      {" "}
       <SidebarHeader>
-        <CloseButton onClick={onClose}>
-          <Image src={ArrowLeft} alt="Voltar" width={24} height={24} />
-        </CloseButton>
-        <SidebarTitle>Mochila de Compras</SidebarTitle>
+        {" "}
+        <CloseButton onClick={onClose} aria-label="Fechar carrinho">
+          {" "}
+          <Image src={ArrowLeft} alt="Voltar" width={24} height={24} />{" "}
+        </CloseButton>{" "}
+        <SidebarTitle as="h2">Mochila de Compras</SidebarTitle>{" "}
       </SidebarHeader>
-
       <SidebarContent>
         {items.map((item) => (
           <CardSidebar key={item.id} product={item} />
         ))}
       </SidebarContent>
-
       <SidebarFooter>
         <TotalContainer>
           <span>TOTAL</span>

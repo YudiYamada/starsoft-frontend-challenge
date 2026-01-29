@@ -32,7 +32,12 @@ const CardSidebar = ({ product }: { product: CartItem }) => {
   return (
     <SidebarCard>
       <ImageContainer>
-        <Image src={product.image} alt={product.name} width={161} height={161} />
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={161}
+          height={161}
+        />
       </ImageContainer>
 
       <Info>
@@ -49,14 +54,44 @@ const CardSidebar = ({ product }: { product: CartItem }) => {
         <Item>
           <Quantity>
             <Select>
-              <span onClick={() => dispatch(updateQuantity({ id: product.id, quantity: product.quantity - 1 }))}>−</span>
-              <span>{product.quantity}</span>
-              <span onClick={() => dispatch(updateQuantity({ id: product.id, quantity: product.quantity + 1 }))}>+</span>
+              {" "}
+              <button
+                aria-label="Diminuir quantidade"
+                onClick={() =>
+                  dispatch(
+                    updateQuantity({
+                      id: product.id,
+                      quantity: product.quantity - 1,
+                    }),
+                  )
+                }
+              >
+                {" "}
+                −{" "}
+              </button>{" "}
+              <span>{product.quantity}</span>{" "}
+              <button
+                aria-label="Aumentar quantidade"
+                onClick={() =>
+                  dispatch(
+                    updateQuantity({
+                      id: product.id,
+                      quantity: product.quantity + 1,
+                    }),
+                  )
+                }
+              >
+                {" "}
+                +{" "}
+              </button>{" "}
             </Select>
           </Quantity>
 
-          <DeleteButton onClick={() => dispatch(removeFromCart(product.id))}>
-            <Image src={trash} alt="Deletar item" width={24} height={24} />
+          <DeleteButton
+            aria-label={`Remover ${product.name} do carrinho`}
+            onClick={() => dispatch(removeFromCart(product.id))}
+          >
+            <Image src={trash} alt="Ícone de lixeira" width={24} height={24} />
           </DeleteButton>
         </Item>
       </Info>

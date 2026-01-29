@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const Button = ({ text, $variant = "primary", disabled = false, onClick }: ButtonProps) => {
-  return <ButtonComponent $variant={$variant} disabled={disabled} onClick={onClick}>{text}</ButtonComponent>;
+  return <ButtonComponent $variant={$variant} disabled={disabled} onClick={onClick} aria-label={text}>{text}</ButtonComponent>;
 };
 
 export default Button;

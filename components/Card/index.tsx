@@ -32,7 +32,7 @@ const Card = ({ product }: { product: Product }) => {
       <div>
         <Image
           src={product.image}
-          alt={product.name}
+          alt={`Imagem do produto ${product.name}`}
           width={296}
           height={258}
         />
@@ -42,7 +42,7 @@ const Card = ({ product }: { product: Product }) => {
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <div>
-          <Image src={ellipse} alt="icone moeda" />
+          <Image src={ellipse} alt="Ícone de moeda Ethereum" />
           <span>{parseFloat(product.price).toFixed(2)} ETH</span>
         </div>
         <Button text="Comprar" onClick={handleAddToCart} />

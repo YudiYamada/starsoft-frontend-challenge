@@ -122,11 +122,14 @@ export const Select = styled.div`
     height: 45px;
   }
 
-  span {
+  button {
     cursor: pointer;
     font-size: 18px;
     color: ${(props) => props.theme.colors.white};
     transition: 0.2s;
+    background-color: transparent;
+    border: none;
+;
 
     &:hover {
       color: ${(props) => props.theme.colors.primary};
