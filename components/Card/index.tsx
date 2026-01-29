@@ -6,7 +6,7 @@ import { CardContainerComponent, DescriptionContainer } from "./styles";
 import Button from "../Button/indext";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
-
+import Link from "next/link";
 interface Product {
   id: number;
   name: string;
@@ -29,14 +29,17 @@ const Card = ({ product }: { product: Product }) => {
 
   return (
     <CardContainerComponent>
-      <div>
+      <Link
+        href={`/nft/${product.id}`}
+        aria-label={`Ver detalhes de ${product.name}`}
+      >
         <Image
           src={product.image}
           alt={`Imagem do produto ${product.name}`}
           width={296}
           height={258}
         />
-      </div>
+      </Link>
 
       <DescriptionContainer>
         <h2>{product.name}</h2>
