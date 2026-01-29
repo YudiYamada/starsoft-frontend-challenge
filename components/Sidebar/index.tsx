@@ -15,7 +15,7 @@ import CardSidebar from "../CardSidebar";
 import ArrowLeft from "../../public/images/Arrow - Left.png";
 import Ellipse from "../../public/images/testellipse.png";
 import Image from "next/image";
-import Button from "../Button/indext";
+import Button from "../Button";
 import { useCart } from "@/hooks/useCart";
 
 interface SidebarProps {

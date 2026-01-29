@@ -5,7 +5,7 @@ import { useProductsAll } from "@/hooks/useProducts";
 import { Product } from "@/types/product";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Button from "@/components/Button/indext";
+import Button from "@/components/Button";
 import { NFTDetailContainer } from "./styles";
 import Image from "next/image";
 import ellipse from "../../../public/images/testellipse.png";

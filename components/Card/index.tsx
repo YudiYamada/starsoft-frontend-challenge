@@ -3,7 +3,7 @@
 import Image from "next/image";
 import ellipse from "../../public/images/testellipse.png";
 import { CardContainerComponent, DescriptionContainer } from "./styles";
-import Button from "../Button/indext";
+import Button from "../Button";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../store/cartSlice";
 import Link from "next/link";

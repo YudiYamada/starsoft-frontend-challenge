@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useProductsInfinite } from "@/hooks/useProducts";
-import Button from "../Button/indext";
+import Button from "../Button";
 import Card from "../Card";
 import { CardContainer, FetchContainer, HeroComponent } from "./styles";
 import { Product } from "@/types/product";
@@ -17,7 +17,8 @@ const Hero = () => {
     isFetchingNextPage,
   } = useProductsInfinite();
 
-  const products: Product[] = data?.pages.flatMap((page) => page.products) || [];
+  const products: Product[] =
+    data?.pages.flatMap((page) => page.products) || [];
   const total = data?.pages[0]?.count || 0;
   const progress = total > 0 ? (products.length / total) * 100 : 0;
 
