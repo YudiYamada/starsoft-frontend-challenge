@@ -36,19 +36,33 @@ export const CardContainer = styled.div`
   justify-items: center;
 `;
 
-export const FetchContainer = styled.div`
+export const FetchContainer = styled.div<{ $progress: number }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 80px auto;
   max-width: 403px;
-  gap: 11px;
+  gap: 15px;
+
+  .progress-track {
+    width: 100%;
+    height: 10px;
+    border-radius: 8px;
+    background-color: ${(props) => props.theme.colors.gray};
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: ${(props) => props.$progress}%;
+    background-color: ${(props) => props.theme.colors.primary};
+    border-radius: 8px;
+    transition: width 0.4s ease-out;
+  }
 
   span {
-    background-color: ${(props) => props.theme.colors.primary};
-    width: 100%;
-    color: transparent;
-    border-radius: 8px;
-    height: 10px;
+    font-size: 14px;
+    color: ${(props) => props.theme.colors.white};
+    font-weight: 500;
   }
 `;

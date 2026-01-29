@@ -18,16 +18,11 @@ export const CardContainerComponent = styled.div`
   }
 `;
 
-export const ImageContainer = styled.div`
-  max-width: 296px;
-  height: 258px;
-`;
-
 export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 49px;
+  margin-top: 10px;
 
   h2 {
     font-weight: 500;
@@ -41,13 +36,20 @@ export const DescriptionContainer = styled.div`
     line-height: 12px;
     margin-top: 10px;
     color: ${(props) => props.theme.colors.lightGray};
+
+    height: 80px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 8;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
   }
 
   div {
     display: flex;
     gap: 3.5px;
     height: 29px;
-    margin-top: 30px;
+    margin-top: 5px;
     margin-bottom: 24px;
 
     span {
