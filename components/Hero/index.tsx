@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useProductsInfinite } from "@/hooks/useProducts";
 import Button from "../Button/indext";
 import Card from "../Card";
 import { CardContainer, FetchContainer, HeroComponent } from "./styles";
+import { Product } from "@/types/product";
 
 const Hero = () => {
   const {
@@ -14,36 +15,27 @@ const Hero = () => {
     isPending,
     isError,
     isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["products"],
-    queryFn: ({ pageParam = 1 }) =>
-      fetch(
-        `https://api-challenge.starsoft.games/api/v1/products?page=${pageParam}&rows=8&sortBy=id&orderBy=ASC`,
-      ).then((res) => res.json()),
-    initialPageParam: 1,
+  } = useProductsInfinite();
 
-    getNextPageParam: (lastPage, allPages) => {
-      const loadedSoFar = allPages.length * 8;
-      return loadedSoFar < lastPage.count ? allPages.length + 1 : undefined;
-    },
-  });
-
-  const products = data?.pages.flatMap((page) => page.products) || [];
+  const products: Product[] = data?.pages.flatMap((page) => page.products) || [];
   const total = data?.pages[0]?.count || 0;
   const progress = total > 0 ? (products.length / total) * 100 : 0;
 
-  if (isPending)
+  if (isPending) {
     return (
       <HeroComponent>
         <p>Carregando...</p>
       </HeroComponent>
     );
-  if (isError)
+  }
+
+  if (isError) {
     return (
       <HeroComponent>
         <p>Erro ao carregar produtos</p>
       </HeroComponent>
     );
+  }
 
   return (
     <HeroComponent>

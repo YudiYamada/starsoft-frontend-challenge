@@ -1,58 +1,58 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import Image from "next/image";
-import { NFTDetailContainer } from "./styles";
+import { useProductsAll } from "@/hooks/useProducts";
+import { Product } from "@/types/product";
 import Header from "@/components/Header";
-import Button from "@/components/Button/indext";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/store/cartSlice";
-import ellipse from "../../../public/images/testellipse.png";
 import Footer from "@/components/Footer";
+import Button from "@/components/Button/indext";
+import { NFTDetailContainer } from "./styles";
+import Image from "next/image";
+import ellipse from "../../../public/images/testellipse.png";
+import { useCart } from "@/hooks/useCart";
 
 export default function NFTPage() {
   const { id } = useParams();
   const router = useRouter();
-  const dispatch = useDispatch();
+  const { addItem } = useCart();
 
-  const { data, isLoading, isError } = useInfiniteQuery({
-    queryKey: ["products"],
-    queryFn: ({ pageParam = 1 }) =>
-      fetch(
-        `https://api-challenge.starsoft.games/api/v1/products?page=${pageParam}&rows=8&sortBy=id&orderBy=ASC`,
-      ).then((res) => res.json()),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      const loadedSoFar = allPages.length * 8;
-      return loadedSoFar < lastPage.count ? allPages.length + 1 : undefined;
-    },
-  });
+  const { data, isLoading, isError } = useProductsAll(50);
 
   if (isLoading) return <p>Carregando NFT...</p>;
   if (isError) return <p>Erro ao carregar NFT</p>;
 
-  const products = data?.pages.flatMap((page) => page.products) || [];
-  const nft = products.find((p: any) => String(p.id) === String(id));
+  const products: Product[] = data?.products || [];
+  const nft = products.find((p) => p.id === Number(id));
 
   if (!nft) {
-    return <p>NFT não encontrado</p>;
+    return (
+      <>
+        <Header />
+        <NFTDetailContainer>
+          <h1>NFT não encontrado</h1>
+          <p>
+            O item que você tentou acessar não existe ou não está disponível.
+          </p>
+          <Button
+            text="Voltar"
+            $variant="secondary"
+            onClick={() => router.back()}
+          />
+        </NFTDetailContainer>
+        <Footer />
+      </>
+    );
   }
 
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        ...nft,
-        quantity: 1,
-      }),
-    );
+    addItem(nft, 1);
   };
 
   return (
     <>
       <Header />
       <NFTDetailContainer>
-        <section className="image-block">
+        <section>
           <Image
             src={nft.image}
             alt={`Imagem do NFT ${nft.name}`}
@@ -61,11 +61,11 @@ export default function NFTPage() {
           />
         </section>
 
-        <section className="info-block">
+        <section>
           <h1>{nft.name}</h1>
           <p>{nft.description}</p>
           <p className="price">
-            <Image src={ellipse} alt="Ícone de moeda Ethereum" />
+            <Image src={ellipse} alt="Ícone de moeda Ethereum" />{" "}
             {parseFloat(nft.price).toFixed(2)} ETH
           </p>
 
@@ -77,7 +77,6 @@ export default function NFTPage() {
           />
         </section>
       </NFTDetailContainer>
-
       <Footer />
     </>
   );

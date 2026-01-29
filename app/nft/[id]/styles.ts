@@ -45,7 +45,7 @@ export const NFTDetailContainer = styled.main`
     object-fit: cover;
   }
 
-  div {
+  section {
     display: flex;
     flex-direction: column;
     align-items: center;
