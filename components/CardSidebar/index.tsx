@@ -14,8 +14,9 @@ import {
 
 import ellipse from "../../public/images/testellipse.png";
 import trash from "../../public/images/Group 223.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../store/cartSlice";
+import { RootState } from "@/store";
 
 interface CartItem {
   id: number;
@@ -28,6 +29,11 @@ interface CartItem {
 
 const CardSidebar = ({ product }: { product: CartItem }) => {
   const dispatch = useDispatch();
+  const currentQuantity = useSelector(
+    (state: RootState) =>
+      state.cart.items.find((i) => i.id === product.id)?.quantity ??
+      product.quantity,
+  );
 
   return (
     <SidebarCard>
@@ -54,36 +60,33 @@ const CardSidebar = ({ product }: { product: CartItem }) => {
         <Item>
           <Quantity>
             <Select>
-              {" "}
               <button
                 aria-label="Diminuir quantidade"
                 onClick={() =>
                   dispatch(
                     updateQuantity({
                       id: product.id,
-                      quantity: product.quantity - 1,
+                      quantity: Math.max(0, currentQuantity - 1),
                     }),
                   )
                 }
               >
-                {" "}
-                −{" "}
-              </button>{" "}
-              <span>{product.quantity}</span>{" "}
+                −
+              </button>
+              <span>{currentQuantity}</span>
               <button
                 aria-label="Aumentar quantidade"
                 onClick={() =>
                   dispatch(
                     updateQuantity({
                       id: product.id,
-                      quantity: product.quantity + 1,
+                      quantity: currentQuantity + 1,
                     }),
                   )
                 }
               >
-                {" "}
-                +{" "}
-              </button>{" "}
+                +
+              </button>
             </Select>
           </Quantity>
 

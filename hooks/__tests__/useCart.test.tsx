@@ -1,3 +1,50 @@
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { store } from "../../store";
+
+const TestComponent = () => {
+  const { items, addItem, removeItem, getTotal, getCount } = useCart();
+
+  return (
+    <div>
+      <div data-testid="count">{getCount()}</div>
+      <div data-testid="total">{getTotal().toFixed(2)}</div>
+      <button
+        onClick={() =>
+          addItem(
+            { id: 1, name: "A", description: "d", image: "i", price: "2.5" },
+            2,
+          )
+        }
+      >
+        add
+      </button>
+      <button onClick={() => removeItem(1)}>remove</button>
+      <div data-testid="items">{items.length}</div>
+    </div>
+  );
+};
+
+describe("useCart hook integration", () => {
+  it("adds and removes items and computes totals/counts", () => {
+    render(
+      <Provider store={store}>
+        <TestComponent />
+      </Provider>,
+    );
+
+    expect(screen.getByTestId("items").textContent).toBe("0");
+    fireEvent.click(screen.getByText("add"));
+    expect(screen.getByTestId("items").textContent).toBe("1");
+    expect(screen.getByTestId("count").textContent).toBe("2");
+    expect(screen.getByTestId("total").textContent).toBe("5.00");
+
+    fireEvent.click(screen.getByText("remove"));
+    expect(screen.getByTestId("items").textContent).toBe("0");
+    expect(screen.getByTestId("count").textContent).toBe("0");
+    expect(screen.getByTestId("total").textContent).toBe("0.00");
+  });
+});
 import { renderHook, act } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
