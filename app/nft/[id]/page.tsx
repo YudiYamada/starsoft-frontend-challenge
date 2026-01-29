@@ -1,26 +1,29 @@
-"use client";
-
-import { useParams, useRouter } from "next/navigation";
-import { useProductsAll } from "@/hooks/useProducts";
-import { Product } from "@/types/product";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Button from "@/components/Button";
 import { NFTDetailContainer } from "./styles";
 import Image from "next/image";
 import ellipse from "../../../public/images/testellipse.png";
-import { useCart } from "@/hooks/useCart";
+import { Product } from "@/types/product";
+import NFTActions from "@/components/NFTActions";
 
-export default function NFTPage() {
-  const { id } = useParams();
-  const router = useRouter();
-  const { addItem } = useCart();
+const API_URL = "https://api-challenge.starsoft.games/api/v1/products";
 
-  const { data, isLoading, isError } = useProductsAll(50);
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
 
-  if (isLoading) return <p>Carregando NFT...</p>;
-  if (isError) return <p>Erro ao carregar NFT</p>;
+export default async function NFTPage({ params }: PageProps) {
+  const { id } = await params;
 
+  const res = await fetch(`${API_URL}?page=1&rows=50&sortBy=id&orderBy=ASC`, {
+    next: { revalidate: 60 },
+  });
+
+  if (!res.ok) {
+    throw new Error("Falha ao buscar dados da API");
+  }
+
+  const data = await res.json();
   const products: Product[] = data?.products || [];
   const nft = products.find((p) => p.id === Number(id));
 
@@ -30,23 +33,12 @@ export default function NFTPage() {
         <Header />
         <NFTDetailContainer>
           <h1>NFT não encontrado</h1>
-          <p>
-            O item que você tentou acessar não existe ou não está disponível.
-          </p>
-          <Button
-            text="Voltar"
-            $variant="secondary"
-            onClick={() => router.back()}
-          />
+          <p>O item que você tentou acessar não existe.</p>
         </NFTDetailContainer>
         <Footer />
       </>
     );
   }
-
-  const handleAddToCart = () => {
-    addItem(nft, 1);
-  };
 
   return (
     <>
@@ -58,23 +50,19 @@ export default function NFTPage() {
             alt={`Imagem do NFT ${nft.name}`}
             width={400}
             height={400}
+            priority
           />
         </section>
 
         <section>
           <h1>{nft.name}</h1>
           <p>{nft.description}</p>
-          <p className="price">
-            <Image src={ellipse} alt="Ícone de moeda Ethereum" />{" "}
-            {parseFloat(nft.price).toFixed(2)} ETH
-          </p>
+          <div className="price">
+            <Image src={ellipse} alt="Ícone de moeda" />{" "}
+            <span>{parseFloat(nft.price).toFixed(2)} ETH</span>
+          </div>
 
-          <Button text="Adicionar ao carrinho" onClick={handleAddToCart} />
-          <Button
-            text="Voltar"
-            $variant="secondary"
-            onClick={() => router.back()}
-          />
+          <NFTActions nft={nft} />
         </section>
       </NFTDetailContainer>
       <Footer />
