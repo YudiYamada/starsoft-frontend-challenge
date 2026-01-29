@@ -3,8 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import bag from "../../public/images/bag.png";
-import Sidebar from "../Sidebar";
+import dynamic from "next/dynamic";
 import { CartContainerComponent } from "./styles";
+
+const Sidebar = dynamic(() => import("../Sidebar"), { ssr: false });
 import { useCart } from "@/hooks/useCart";
 
 const CartTrigger = () => {
