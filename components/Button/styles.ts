@@ -2,7 +2,7 @@
 import styled from "styled-components";
 
 interface ButtonVariantProps {
-  variant?: "primary" | "secondary";
+  $variant?: "primary" | "secondary";
 }
 
 export const ButtonComponent = styled.button<ButtonVariantProps>`
@@ -16,7 +16,7 @@ export const ButtonComponent = styled.button<ButtonVariantProps>`
 
   /* Lógica da Variante */
   background-color: ${(props) =>
-    props.variant === "secondary"
+    props.$variant === "secondary"
       ? `${props.theme.colors.gray}40`
       : props.theme.colors.primary};
 
