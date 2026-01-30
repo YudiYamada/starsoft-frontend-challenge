@@ -2,11 +2,12 @@ import Image from "next/image";
 import logo from "../../public/images/logo.png";
 import { HeaderComponent } from "./styles";
 import CartTrigger from "../CartTrigger";
+import Link from "next/link";
 
 const Header = () => {
   return (
     <HeaderComponent>
-      <div>
+      <Link href="/" aria-label="Ir para a página inicial">
         <Image
           src={logo}
           alt="Logo da StarSoft NFT"
@@ -14,7 +15,7 @@ const Header = () => {
           height={38}
           priority
         />
-      </div>
+      </Link>
       <div>
         <CartTrigger />
       </div>
